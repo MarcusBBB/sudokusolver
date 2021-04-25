@@ -1,3 +1,5 @@
+//const { solveSudoku } = require('./main');
+
 let grid = document.getElementById('sudokugrid');
 
 function create_element(
@@ -92,3 +94,6 @@ for (let h = 0; h < 9; h++) {
 		select_elements
 	);
 }
+
+let button = document.getElementsByTagName('button')[0];
+button.onclick = solveSudoku;

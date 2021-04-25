@@ -1,3 +1,28 @@
+solveSudoku = function () {
+	sudokuGrid = getGrid();
+	console.log(sudokuGrid);
+	let solved = Solver.solveSudoku(sudokuGrid);
+	Solver.printSudoku(solved);
+	console.log(solved);
+};
+
+function getGrid() {
+	let sudokuGrid = [[], [], [], [], [], [], [], [], []];
+	let blockNum = 0;
+	for (let block of grid.children) {
+		let numInBlock = 0;
+		for (let select_element of block.children) {
+			let rowNumber = Math.floor(blockNum / 3) * 3 + Math.floor(numInBlock / 3);
+			sudokuGrid[rowNumber].push(
+				select_element.value == '' ? 0 : parseInt(select_element.value)
+			);
+			numInBlock++;
+		}
+		blockNum++;
+	}
+	return sudokuGrid;
+}
+
 const Solver = {
 	getEmptyPlaces(sudoku) {
 		let unfilledPositions = [];
@@ -132,4 +157,3 @@ const Solver = {
 		}
 	},
 };
-module.exports = Solver;
