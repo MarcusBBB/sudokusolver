@@ -28,21 +28,30 @@ function create_element(
 }
 
 function return_child_element_setup(
-	type_child,
-	classNames_child,
-	id_child,
-	attributes_child,
-	innertext_child,
-	children_child
+	type,
+	classNames,
+	id,
+	attributes,
+	innertext,
+	children
 ) {
 	return {
-		type: type_child,
-		classNames: classNames_child,
-		id: id_child,
-		attributets: attributes_child,
-		innertext: innertext_child,
-		children: children_child,
+		type,
+		classNames,
+		id,
+		attributes,
+		innertext,
+		children,
 	};
+}
+
+let select_elements = [
+	return_child_element_setup('option', null, null, { value: '' }, '', []),
+];
+for (let j = 1; j <= 9; j++) {
+	select_elements.push(
+		return_child_element_setup('option', null, null, { value: j }, j, [])
+	);
 }
 
 for (let h = 0; h < 9; h++) {
@@ -59,14 +68,22 @@ for (let h = 0; h < 9; h++) {
 		select.setAttribute('name', 'numbers');
 		select.classList.add(`block_${h}`);
 		select.classList.add(`block_number_${i}`);
-		let select_elements = [
-			return_child_element_setup('option', null, null, { value: '' }, '', []),
-		];
-
-		create_element(select, 'option', null, null, { value: '' }, '');
+		console.log(select_elements);
+		for (element_setup of select_elements) {
+			console.log(element_setup);
+			create_element(
+				select,
+				element_setup.type,
+				element_setup.classNames,
+				element_setup.id,
+				element_setup.attributes,
+				element_setup.innertext
+			);
+		}
+		/* create_element(select, 'option', null, null, { value: '' }, '');
 		for (let j = 1; j <= 9; j++) {
 			create_element(select, 'option', null, null, { value: j }, j);
-		}
+		} */
 
 		block.appendChild(select);
 	}
