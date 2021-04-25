@@ -6,11 +6,12 @@ function create_element(
 	classNames = null,
 	id = null,
 	attributes = null,
-	innertext = ''
+	innertext = '',
+	children
 ) {
 	let new_element = document.createElement(type);
 	if (classNames) {
-		for (let className in classNames) {
+		for (let className of classNames) {
 			new_element.classList.add(className);
 		}
 	}
@@ -23,7 +24,19 @@ function create_element(
 		new_element.id = id;
 	}
 	new_element.innerText = innertext;
-
+	if (children) {
+		for (child of children) {
+			create_element(
+				new_element,
+				child.type,
+				child.classNames,
+				child.id,
+				child.attributes,
+				child.innertext,
+				child.children
+			);
+		}
+	}
 	parent.appendChild(new_element);
 }
 
@@ -45,50 +58,37 @@ function return_child_element_setup(
 	};
 }
 
-let select_elements = [
+let option_elements = [
 	return_child_element_setup('option', null, null, { value: '' }, '', []),
 ];
+
 for (let j = 1; j <= 9; j++) {
-	select_elements.push(
+	option_elements.push(
 		return_child_element_setup('option', null, null, { value: j }, j, [])
 	);
 }
 
 for (let h = 0; h < 9; h++) {
-	let block = document.createElement('div');
-	block.classList.add('grid');
-	block.classList.add('block_' + h);
-	if (h % 2 == 0) {
-		//select.style.backgroundColor('grey');
-		block.classList.add('grey');
-	}
+	let select_elements = [];
 	for (let i = 0; i < 9; i++) {
-		let select = document.createElement('select');
-		select.id = `block_${h}block_number_${i}`;
-		select.setAttribute('name', 'numbers');
-		select.classList.add(`block_${h}`);
-		select.classList.add(`block_number_${i}`);
-		console.log(select_elements);
-		for (element_setup of select_elements) {
-			console.log(element_setup);
-			create_element(
-				select,
-				element_setup.type,
-				element_setup.classNames,
-				element_setup.id,
-				element_setup.attributes,
-				element_setup.innertext
-			);
-		}
-		/* create_element(select, 'option', null, null, { value: '' }, '');
-		for (let j = 1; j <= 9; j++) {
-			create_element(select, 'option', null, null, { value: j }, j);
-		} */
-
-		block.appendChild(select);
+		select_elements.push(
+			return_child_element_setup(
+				'select',
+				[`block_${h}`, `block_number_${i}`],
+				`block_${h}block_number_${i}`,
+				{ name: 'numbers' },
+				'',
+				option_elements
+			)
+		);
 	}
-
-	grid.append(block);
+	create_element(
+		grid,
+		'div',
+		['grid', `block_${h}`, h % 2 == 0 ? 'grey' : 'white'],
+		null,
+		null,
+		'',
+		select_elements
+	);
 }
-
-/*  */
