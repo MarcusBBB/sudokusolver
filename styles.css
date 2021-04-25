@@ -1,0 +1,14 @@
+#sudokugrid {
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.grid {
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+	background-color: transparent;
+}
+
+.grey {
+	background-color: gray;
+}
