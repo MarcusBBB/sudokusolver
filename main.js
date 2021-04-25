@@ -3,7 +3,7 @@ solveSudoku = function () {
 	console.log(sudokuGrid);
 	let solved = Solver.solveSudoku(sudokuGrid);
 	Solver.printSudoku(solved);
-	console.log(solved);
+	fillGrid(solved);
 };
 
 function getGrid() {
@@ -156,4 +156,19 @@ const Solver = {
 			}
 		}
 	},
+};
+
+fillGrid = function (solved) {
+	let blockNum = 0;
+	for (let block of grid.children) {
+		let numInBlock = 0;
+		for (let select_element of block.children) {
+			let rowNumber = Math.floor(blockNum / 3) * 3 + Math.floor(numInBlock / 3);
+			let columnNumber = (blockNum % 3) * 3 + (numInBlock % 3);
+			console.log(rowNumber, columnNumber);
+			select_element.value = solved[rowNumber][columnNumber];
+			numInBlock++;
+		}
+		blockNum++;
+	}
 };

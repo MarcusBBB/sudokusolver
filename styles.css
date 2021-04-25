@@ -2,6 +2,9 @@ h1 {
 	text-align: center;
 }
 
+p {
+	font-size: x-large;
+}
 #sudokugrid {
 	display: grid;
 	margin: 0 auto;
@@ -10,16 +13,26 @@ h1 {
 	height: 50vh;
 	min-width: 300px;
 	min-height: 300px;
-	gap: 2px;
-	background-color: black;
 	border: 3px solid black;
 }
 
 .grid {
 	display: grid;
 	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+	border: 1.5px solid black;
 }
 
+select {
+	font-size: xx-large;
+	text-align: center;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	padding-left: 30%;
+}
+
+select::-ms-expand {
+	display: none;
+}
 .grey select {
 	background-color: rgb(199, 199, 199);
 }
